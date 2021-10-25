@@ -18,14 +18,14 @@ class RotationalTransformer(nn.Module):
             nn.MaxPool2d(2, stride=2),
             nn.ReLU(True))
         self.fc_loc = nn.Sequential(
-            nn.Linear(10 * 4 * 4, 32),
+            nn.Linear(10 * 4, 32),
             nn.ReLU(True),
             nn.Linear(32, 1))
 
     
         
-        self.fc_loc[2].weight.data.zero_()
-        self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
+        # self.fc_loc[2].weight.data.zero_()
+        # self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
         
     def rotate(self, x):
 
@@ -36,11 +36,10 @@ class RotationalTransformer(nn.Module):
 
         # Build Affine Transform, rotates image by angle theta
         rotate_matrix = torch.tensor([[torch.cos(theta), -torch.sin(theta), 0], 
-                                      [torch.sin(theta),  torch.cos(theta), 0], 
-                                      [0,                 0,                1]], dtype=torch.float32)
+                                      [torch.sin(theta),  torch.cos(theta), 0]], dtype=torch.float32)
         
         # Apply rotation
-        grid = F.affine_grid(theta, x.size())
+        grid = F.affine_grid(rotate_matrix.unsqueeze(0), x.size())
         x = F.grid_sample(x, grid)
         
         return x
@@ -60,4 +59,10 @@ class RotationalTransformer(nn.Module):
 # TEST 
 
 if __name__ == "__main__":
-    pass
+    from lenet import LeNet
+    net = LeNet(1, 10)
+    rt = RotationalTransformer(net)
+
+    img = torch.rand(1, 1, 24, 24)
+
+    print(rt.rotate(img).shape)
