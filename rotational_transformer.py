@@ -31,7 +31,7 @@ class RotationalTransformer(nn.Module):
 
         # Forward Prop Image --> Get Theta
         xs = self.localization(x)
-        xs = torch.flatten(xs)
+        xs = torch.flatten(xs, start_dim=1)
         theta = self.fc_loc(xs)
 
         # Build Affine Transform, rotates image by angle theta
@@ -66,3 +66,5 @@ if __name__ == "__main__":
     img = torch.rand(1, 1, 24, 24)
 
     print(rt.rotate(img).shape)
+    print(net(img))
+    print(rt(img))
