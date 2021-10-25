@@ -9,7 +9,7 @@ class LeNet(nn.Module):
         self.conv2 = nn.Conv2d(in_channels=6, out_channels=16, kernel_size=(5,5), stride=(1,1), padding=(0,0))
         self.conv3 = nn.Conv2d(in_channels=16, out_channels=120, kernel_size=(3,3), stride=(1,1), padding=(0,0))
 
-        self.linear1 = nn.Linear(1080, 84)
+        self.linear1 = nn.Linear(120, 84)
         self.linear2 = nn.Linear(84, out_channels)
 
         self.relu = nn.ReLU()
@@ -33,6 +33,5 @@ class LeNet(nn.Module):
         x = self.relu(x)
 
         x = self.linear2(x)
-        x = nn.Softmax()(x)
 
         return x
