@@ -1,3 +1,4 @@
+from rotational_transformer import RotationalTransformer
 from spatial_transformer import SpatialTransformer
 from lenet import LeNet as Net
 
@@ -32,7 +33,7 @@ train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_wo
 
 
 ### MODEL
-net = SpatialTransformer(Net(1,10))
+net = RotationalTransformer(Net(1,10))
 
 # LOSS
 loss_fn = nn.CrossEntropyLoss()
