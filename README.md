@@ -1,5 +1,5 @@
 # Rotational Transformer Networks
-### Reverse engineering Spatial Transformer Networks to approximate rotational orientation.
+Reverse engineering Spatial Transformer Networks to approximate rotational orientation.
 
 ### Problem: Estimate the rotational orientation of an image.
 The central idea of a rotational transformer network is to learn the optimal ***rotation*** for a given image. 
