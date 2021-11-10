@@ -17,13 +17,14 @@ lr = .01
 
 # Data
 
-transform = transforms.Compose([
-    transforms.RandomAffine(
-        degrees=(-45, 45), 
-        scale=(0.7, 1.2),
-        translate=(0.1, 0.3),),
-    transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,)),])
+transform = transforms.Compose([transforms.RandomAffine(
+                                    degrees=(-45, 45), 
+                                    scale=(0.7, 1.2),
+                                    translate=(0.1, 0.3),),
+                                transforms.ToTensor(),
+                                transforms.Normalize((0.1307,), (0.3081,)),])
+
+
 
 test_set = datasets.MNIST(root=root, train=False, transform=transform, target_transform=None, download=False)
 train_set = datasets.MNIST(root=root, train=True, transform=transform, target_transform=None, download=False)

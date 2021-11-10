@@ -18,7 +18,7 @@ class RotationalTransformer(nn.Module):
             nn.MaxPool2d(2, stride=2),
             nn.ReLU(True))
         self.fc_loc = nn.Sequential(
-            nn.Linear(10 * 4, 32),
+            nn.Linear(10 * 4 * 4, 32),
             nn.ReLU(True),
             nn.Linear(32, 1))
 
